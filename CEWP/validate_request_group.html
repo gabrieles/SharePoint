@@ -1,0 +1,56 @@
+<script type="text/javascript" src="/Style%20Library/ICR/Scripts/jquery.validate.min.js"></script>
+<script>
+//cutom validation function. there are more in 
+jQuery.validator.addMethod("alphanumeric", function(value, element) {
+    return this.optional(element) || /^[a-z0-9\-\s]+$/i.test(value);
+}, "Letters, numbers, spaces, and underscores only please");
+
+$(document).ready(function(){
+
+	//hide field elements
+	$("input[title$='icr_TeamSiteLink']").parent('span').parent('td').parent('tr').hide();
+	$("input[title$='IsDeleted']").parent('span').parent('td').parent('tr').hide();
+	
+	//original code from http://sharepointtips-tricks.blogspot.co.uk/2013/10/sharepoint-with-jquery-client-side-form.html 
+	
+	//add form validation
+	var validator = $("form").validate({ 
+		errorClass: "ms-formvalidation",
+		invalidHandler: function(event, validator) {
+			$("input[value='Save']").addClass("inactiveButton")
+		},
+		submitHandler: function(form) {
+			$("input[value='Save']").removeClass("inactiveButton")
+		}
+	}); // class to be addedd to the field if it does not pass validation
+	
+	$("input[title='Site name Required Field']").rules("add", { 
+		alphanumeric: true,
+		messages: {
+			alphanumeric : "Letters, numbers, spaces, and underscores only please"
+			}
+	});
+	
+	//disable clicking on save if form does not pass the validation
+	$("input[value='Save']").each(function () {
+		var js = $(this).attr("onclick");
+		$(this).attr("onclick", "");//remove sharepoint click handler...
+		$(this).click(function (event) {
+			if (!validator.form()) {				
+				return false;
+			} else {
+				//call sharepoint click handler..
+				eval(" ( function () {" + js + " })();");
+			}
+		})
+	})
+	
+});
+</script>
+<html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"><head>
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:Notes0 msdt:dt="string"></mso:Notes0>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+<title></title></head>

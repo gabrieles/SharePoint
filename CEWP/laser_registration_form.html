@@ -1,0 +1,46 @@
+<style>
+h3.ms-standardheader {width: 440px;}
+td.ms-formbody {width: 600px;}
+#idAttachmentsRow .ms-formlabel {display: none;}
+table#idAttachmentsTable { margin-top: -20px; }
+</style>
+
+<script>
+function emulateButtonFunction()
+{
+       var instance = SP.Ribbon.PageManager.get_instance();
+       if (instance)
+           instance.get_commandDispatcher().executeCommand("Ribbon.ListForm.Edit.Actions.AttachFile", null);
+
+}
+
+$( document ).ready(function() {
+	
+	$("div[id^='Power_x0020_and_x0020_Pulse']").closest('tr').hide();
+	
+	var htmlButton = 	'<tr>' +
+							'<td class="ms-formlabel"><h3 class="ms-standardheader"><nobr>Relevant documents</nobr></h3></td>' + 
+							'<td class="ms-formbody"><div><button id="uploadFiles" onclick="emulateButtonFunction()" type="button" style="margin-top: 20px;">Upload files</button></div><span class="ms-metadata"></span></td>'+
+						'</tr>'
+	$("tr#idAttachmentsRow").before(htmlButton);
+	
+	$("table[id^='Is_x0020_the_x0020_laser_x0020_p'] input[value='Yes']").change(function () {
+		if( $(this).prop("checked", true) ) {
+			$("div[id^='Power_x0020_and_x0020_Pulse']").closest('tr').show();
+		} 
+	});
+	$("table[id^='Is_x0020_the_x0020_laser_x0020_p'] input[value='No']").change(function () {
+		if( $(this).prop("checked", true) ) {
+			$("div[id^='Power_x0020_and_x0020_Pulse']").closest('tr').hide();
+		} 
+	});
+
+});
+
+</script><html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"><head>
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:Notes0 msdt:dt="string"></mso:Notes0>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+<title></title></head>

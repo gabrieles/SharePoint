@@ -1,0 +1,184 @@
+<div id="policy-wrapper" class="wrapper">
+    <div class="container">
+        <div class="row">
+            <!-- end side nav -->
+            <div class="col-md-3 hidden-sm hidden-xs pl-0">			
+                <div class="left-nav red-top-border">
+                    <ul id="relatedPolicies">
+                    </ul>
+					<ul id="addMenu" class="admin-menu">
+					</ul>
+                </div>
+            </div>
+            <!-- end side nav -->
+            <div class="col-md-9 col-xs-12">
+                <div id="policy-page" class="" style="padding-left:10px;">
+                    <!-- page title -->
+                    <div class="row">
+						<div id="message"></div>
+                        <div class="col-xs-12 pl-0">
+                            <h1 id="policyTitle" class="page-title">
+                            </h1>
+                        </div>
+                    </div>
+                    <!-- end.page title -->
+                    
+					<!-- cover sheet -->
+					<div id="cover-wrapper" class="row" >
+						<div id="cover-list" class="col-xs-12 mb-20 pl-0 bg-l-grey">
+							<div id="cover-sheet-wrapper">
+								<div class="cover-sheet-item">
+									<div class="cover-sheet-label">Approving committee:</div>
+									<div class="cover-sheet-content" id="approving-committee"></div>
+								</div>
+								<div class="cover-sheet-item">
+									<div class="cover-sheet-label">Date of first approval:</div>
+									<div class="cover-sheet-content" id="first-approval"></div>
+								</div>
+								<div class="cover-sheet-item show-more">
+									<div class="cover-sheet-label">Minute reference:</div>
+									<div class="cover-sheet-content" id="minute-reference"></div>
+								</div>
+								<div class="cover-sheet-item show-more">
+									<div class="cover-sheet-label">Document owner:</div>
+									<div class="cover-sheet-content" id="document-owner"></div>
+								</div>
+								<div class="cover-sheet-item show-more">
+									<div class="cover-sheet-label">Date of Equality Impact Assessment:</div>
+									<div class="cover-sheet-content" id="equality-assessment-date"></div>
+								</div>
+								<div class="cover-sheet-item show-more">
+									<div class="cover-sheet-label">Equality Impact Assessment Outcome:</div>
+									<div class="cover-sheet-content" id="equality-assessment-outcome"></div>
+								</div>
+								<div class="cover-sheet-item">
+									<div class="cover-sheet-label">Latest review date:</div>
+									<div class="cover-sheet-content" id="latest_review"></div>
+								</div>
+								<div class="cover-sheet-item">
+									<div class="cover-sheet-label">Next review date:</div>
+									<div class="cover-sheet-content" id="next_review"></div>
+								</div>
+								<div class="showButton doNotPrint" id="showmorebutton"><a onclick="showMorePolicyDetails();">Show more</a></div>
+								<div class="showButton doNotPrint" id="showlessbutton"><a onclick="showLessPolicyDetails();">Show less</a></div>								
+							</div>
+						</div>
+					
+						<table id="cover-table" class=MsoTableMediumGrid1 border=1 cellspacing=0 cellpadding=0 style="display: none;">
+							<tr><td class="cover-sheet-label"><b>Approving committee:</b></td><td class="cover-sheet-content" id="tb-approving-committee"></td></tr>
+							<tr><td class="cover-sheet-label"><b>Date of first approval:</b></td><td class="cover-sheet-content" id="tb-first-approval"></td></tr>
+							<tr><td class="cover-sheet-label"><b>Minute reference:</b></td><td class="cover-sheet-content" id="tb-minute-reference"></td></tr>
+							<tr><td class="cover-sheet-label"><b>Document owner:</b></td><td class="cover-sheet-content" id="tb-document-owner"></td></tr>
+							<tr><td class="cover-sheet-label"><b>Date of Equality Impact Assessment:</b></td><td class="cover-sheet-content" id="tb-equality-assessment-date"></td></tr>
+							<tr><td class="cover-sheet-label"><b>Equality Impact Assessment Outcome:</b></td><td class="cover-sheet-content" id="tb-equality-assessment-outcome"></td></tr>
+							<tr><td class="cover-sheet-label"><b>Latest review date:</b></td><td class="cover-sheet-content" id="tb-latest_review"></td></tr>
+							<tr><td class="cover-sheet-label"><b>Next review date:</b></td><td class="cover-sheet-content" id="tb-next_review"></td></tr>
+						</table>
+						<!-- end.cover sheet -->
+						
+						<div id="policyButtonsContainer" class="doNotPrint">
+							<div class="policyButton">
+								<a title="Download as a MS Word document" class="word-export" href="javascript:void(0)"> 
+									<div class="cover-bg" style="background-image: url('/Style%20Library/ICR/Images/PolicyLibrary/Download.png')"></div>
+									Save .doc
+								</a>
+							</div>    
+							<!-- 	
+							<div class="policyButton">
+								<a title="Download as a PDF document" class="pdf-save" href="javascript:void(0)"> 
+									<div class="cover-bg" style="background-image: url('/PublishingImages/Lists/ICR%20Task%20Categories/AllItems/Money-5.png')"></div>
+									Save .pdf
+								</a>
+							</div>      
+							--> 
+							<div class="policyButton">
+								<a title="Print page" "class="print" href="javascript:window.print();"> 
+									<div class="cover-bg" style="background-image: url('/Style%20Library/ICR/Images/PolicyLibrary/ExportToDoc.png')"></div>
+									Print 
+								</a>
+							</div>    
+						</div>	
+					</div>
+					<div class="row show-more">
+						<div class="col-xs-12 pl-0">
+							<div class="pb-20 icr-user-input">
+								<div id="policyReviews">
+								</div>								
+							</div>
+						</div>
+					</div>
+					
+					<div class="row show-more">
+						<div class="col-xs-12 pl-0">
+							<div class="pb-20 icr-user-input">
+								<div id="policyReplacementPatterns">
+								</div>								
+							</div>
+						</div>
+					</div>
+					
+					<!-- policy body -->
+                    <div class="row">
+                        <div class="col-xs-12 pl-0">
+                            <div class="pb-20 icr-user-input">
+                                <div id="policyContent">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end.policy body -->
+					
+                    <!-- accordion -->
+                    <div class="row">
+                        <div class="col-xs-12 pl-0">
+                            <div class="panel-group policyfaq" id="accordion">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end.accordion -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/style library/ICR/Scripts/icr_policy_item.js?v=20">//<![CDATA[
+
+//]]></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="/Style%20Library/ICR/Scripts/FileSaver.js?v=1"></script>
+<script src="/Style%20Library/ICR/Scripts/icr_policy_export.js?v=3"></script>
+<script type="text/javascript">
+    $(document).ready(function ($) {
+		$("a.word-export").click(function (event) {
+			$("#policy-page").wordExport();
+		});
+		//$("a.pdf-save").click(function (event) {
+		//	$("#policy-page").pdfExport();
+		//});
+        $('#onetIDListForm').addClass('container');
+        getPolicyDetails();
+    });
+</script>
+
+
+
+<style type="text/css">
+    #sideNavBox { display: none;}
+    #contentBox {margin-left:5px; }
+    body span#DeltaPlaceHolderPageTitleInTitleArea { display: none;}
+	.policyButton { width: 100%; display: inline-block; font-size: 0.9rem; text-align: center; padding-bottom:20px; }
+	.policyButton .cover-bg {display: block; width: 55px; height: 55px; margin: 0 auto;}
+	h1#policyTitle {margin-bottom:30px}
+	div#cover-list { display: inline-block;  width: calc(100% - 100px); }
+	div#policyButtonsContainer { display: inline-block;  width: 100px; }
+	#message .redAlert { padding: 20px 100px 20px 20px; margin-top: 0;}
+	#message #requestApproval {width: 90px; display: block; height: 63px; text-align: center; float: right; margin-top: -12px; margin-right: -90px; }
+	body #policy-wrapper .Pending:before {display: none;}
+}
+</style><html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"><head>
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:Notes0 msdt:dt="string"></mso:Notes0>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+<title></title></head>

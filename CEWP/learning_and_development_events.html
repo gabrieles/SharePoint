@@ -1,0 +1,27 @@
+<div id="sidebar"></div>
+<div id="eventsContainer">
+	<div id="eventsContainerLoading">Loading data from the learning & Development website...</div>
+</div>
+
+ 
+<script>
+$(document).ready(function ($) {
+	$.ajax({
+	   type: 'GET',
+	   url: 'https://crossorigin.me/https://training.icr.ac.uk', //need to preprend the crossorigin url to avoid the ajax call to be blocked
+	   data: {format: 'html'},
+	   success: function(data) {
+		  $('#eventsContainerLoading').hide();
+		  
+		  var html = $(data).find('#courselist');
+		  $('#eventsContainer').append(html);
+	  
+	   },
+	   error: function() {
+		  $('#eventsContainer').html('<p>Could not retrieve the information from their website</p>');
+	   },
+	});
+
+});
+
+</script>

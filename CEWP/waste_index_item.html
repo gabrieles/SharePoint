@@ -1,0 +1,189 @@
+<div class="wrapper">
+    <div class="container">
+        <div class="row">
+            
+            <!-- end side nav -->
+            <div class="col-md-3 hidden-sm hidden-xs pl-0">
+                <div class="left-nav red-top-border">
+					<ul id="parentTask">
+						<li><a href="/Lists/ICR Tasks/DispForm.aspx?ID=34">Waste</a></li>
+					</ul>
+                    <ul id="relatedTasks">                                                            
+                    </ul>
+                </div>   
+            </div>
+            <!-- end side nav -->
+            <div class="col-md-9 col-xs-12">
+                <div class="gutter-left-10">
+                    <!-- page title -->
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h1 id="taskTitle" class="page-title"></h1>                                                            
+                        </div>
+                    </div>
+                    <!-- end.page title -->
+                    
+                    <!-- user input -->
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="pb-20">
+                                <div id="wasteIndexDisplay" class="has-list">
+									<div id="wasteNotes" class="pb-40"></div>
+									<div id="wasteInclusions" class="pb-40"></div>
+									<div id="wasteExclusions" class="pb-40"></div>
+									<div id="wasteContainer" class="pb-40"></div>
+									<div id="wasteMethod" class="pb-40"></div>
+									<div id="wasteOwner" class="pb-40"></div>
+									<div id="wasteImages" class="pb-40" style="display:none;"><h3 class="border-bottom-line5">Relevant images</h3></div>
+								</div>                                             
+                            </div>        
+                        </div>                                
+                    </div>
+                    <!-- end.user input -->
+                    
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+#wasteImages img {
+	max-width: 250px;
+	max-height: 300px;
+	border: 1px solid #ccc;
+}
+
+#wasteImages {
+    margin-bottom: 40px;
+}
+
+#wasteImages > div {
+    display: inline-block;
+    padding-right: 40px;
+	vertical-align: bottom;
+}
+
+#wasteImages span.caption {
+    text-align: center;
+    display: block;
+    color: #999;
+    font-style: italic;
+	min-height: 1.5em;
+}
+
+body span#DeltaPlaceHolderPageTitleInTitleArea,
+#WebPartWPQ1 .ms-formtoolbar {
+    display: none;
+}
+</style>
+
+
+<script type="text/javascript">
+    $(document).ready(function ($) {
+		var html = '';
+		
+		//update the title 
+		var rowEl = $('.ms-formtable a[name="SPBookmark_Title"]').closest('tr');
+		html = '<span>' + rowEl.find('.ms-formbody').text() + '</span>';
+		$('#taskTitle').append(html);
+		rowEl.hide();
+		
+		//notes
+		rowEl = $('.ms-formtable a[name="SPBookmark_Notes"]').closest('tr');
+		if(rowEl.find('.ms-formbody').text().trim().length > 0 ) {
+			html = '<div class="border-line10 pl-10 pt-10 pb-10">' + rowEl.find('.ms-formbody').text() + '</div>';
+			$('#wasteNotes').append(html);
+		} else {
+			$('#wasteNotes').remove();
+		}
+		rowEl.hide();
+		
+		//inclusions
+		rowEl = $('.ms-formtable a[name="SPBookmark_Inclusions"]').closest('tr');
+		if(rowEl.find('.ms-formbody').text().trim().length > 0 ) {
+			html = 	'<div><h3 class="border-bottom-line0">Inclusions</h3></h3></div>' + 
+					'<div>' + rowEl.find('.ms-formbody').html() + '</div>';
+			$('#wasteInclusions').append(html);
+		} else {
+			$('#wasteInclusions').remove();
+		}
+		rowEl.hide();
+		
+		//exclusions
+		rowEl = $('.ms-formtable a[name="SPBookmark_Exclusions"]').closest('tr');
+		if(rowEl.find('.ms-formbody').text().trim().length > 0 ) {
+			html = 	'<div><h3 class="border-bottom-line1">Exclusions</h3></h3></div>' + 
+					'<div>' + rowEl.find('.ms-formbody').html() + '</div>';
+			$('#wasteExclusions').append(html);
+		} else {
+			$('#wasteExclusions').remove();
+		}
+		rowEl.hide();
+		
+		//Waste container
+		rowEl = $('.ms-formtable a[name="SPBookmark_Waste_x0020_container"]').closest('tr');
+		if(rowEl.find('.ms-formbody').text().trim().length > 0 ) {
+			html = 	'<div><h3 class="border-bottom-line2">Waste container</h3></h3></div>' + 
+					'<div>' + rowEl.find('.ms-formbody').text() + '</div>';
+			$('#wasteContainer').append(html);
+		} else {
+			$('#wasteContainer').remove();
+		}
+		rowEl.hide();
+		
+		//Method
+		rowEl = $('.ms-formtable a[name="SPBookmark_Method"]').closest('tr');
+		if(rowEl.find('.ms-formbody').text().trim().length > 0 ) {
+			html = 	'<div><h3 class="border-bottom-line3">Method</h3></h3></div>' + 
+					'<div>' + rowEl.find('.ms-formbody').html() + '</div>';
+			$('#wasteMethod').append(html);
+		} else {
+			$('#wasteMethod').remove();
+		}
+		rowEl.hide();
+		
+		//Owner
+		rowEl = $('.ms-formtable a[name="SPBookmark_This_x0020_route_x0020_is_x0020_"]').closest('tr');
+		if(rowEl.find('.ms-formbody').text().trim().length > 0 ) {
+			html = 	'<div><h3 class="border-bottom-line4">Route owned by</h3></h3></div>' + 
+					'<div>' + rowEl.find('.ms-formbody').text() + '</div>';
+			$('#wasteOwner').append(html);
+		} else {
+			$('#wasteOwner').remove();
+		}
+		rowEl.hide();
+		
+		//Images
+		$('.ms-formtable a[name^="SPBookmark_Image"]').each( function() {
+			rowEl = $(this).closest('tr');
+			if( rowEl.find('.ms-formbody img').length >0 ) {
+				$('#wasteImages').show();
+				var imageAlt = rowEl.find('.ms-formbody img').attr('alt');
+				var imageSrc = rowEl.find('.ms-formbody img').attr('src');
+				html = 	'<div><img alt="' + imageAlt + '" src="' + imageSrc +  '"/>' + '<br><span class="caption">' + imageAlt + '</span></div>';
+				$('#wasteImages').append(html);
+			}
+			rowEl.hide();		
+		})
+		
+		//Initial
+		$('.ms-formtable a[name="SPBookmark_Initial"]').closest('tr').hide();
+		
+		//tags
+		$('.ms-formtable a[name="SPBookmark_Tags"]').closest('tr').hide();
+		
+		//add the left hand menu
+		addTaskMenu('Scientific support', 'Support', 173, 34)
+		
+	});		
+</script>
+
+<html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"><head>
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:Notes0 msdt:dt="string"></mso:Notes0>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+<title></title></head>

@@ -1,0 +1,169 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
+
+<!-- divisions -->
+<div class="wrapper bg-l-grey bg-stretch-before bg-stretch-after pb-20 mb-0">
+    <div class="container pb-20 plr-0">
+        <div class="row mlr-0">
+            <div class="col-xs-12">                                        
+                <div class="row pb-20">
+                    <div class="col-xs-12 plr-0">
+                        <h2 class="pt-20 mb-0">Divisions</h2>
+                    </div>
+                     
+                    <div class="col-xs-12 threecolumnclear plr-0 row" id="divisionlist-wrapper">
+                        
+						<div id="divisionsList" class="container-mt-20 add-border">                                	
+						</div>
+						
+						<div class="col-md-4 col-xs-12 col-element pt-20" id="teamFilter">
+							<div class="icr-dropdown">
+								<div class="text-white bg-red p-20 pt-10 pb-10">
+								<h4 class="">Research teams</h4>
+									<div class="dropdown-wrapper">
+										<div class="dropdown">                                            
+											<select id="teamLeadersDropdown" class="selectpicker" title="Team leader" data-mobile="true">
+																																												  
+											</select>
+										</div>
+									</div>
+									<div class="content-wrapper">
+										<div class="broken-border">
+											<h5><span>OR</span></h5>    
+										</div>
+									</div>
+									<div class="dropdown-wrapper">
+										<div class="dropdown">
+											<select id="teamsDropdown" class="selectpicker" title="Team name" data-mobile="true">
+																																															  
+											</select> 
+										</div>
+									</div>    
+								</div>    
+							</div>    
+						</div>
+						
+                    </div>	
+                </div>    
+            </div>    
+        </div>
+    </div>        
+</div>
+
+<!-- strategic initiatives -->
+<div class="wrapper bg-l-grey bg-stretch-before bg-stretch-after">
+    <div class="container pt-20 plr-0">
+        <div class="row pb-20 mlr-0">
+            <div class="col-xs-12 plr-0">                    
+                <div class="pb-20">
+                    <div class="col-xs-12 plr-0">
+                        <div class="yellow-top-border">                                
+                            <h2 class="ptb-20 mb-0">Strategic initiatives</h2>                                
+                        </div>    
+                    </div>                                                       
+                </div>
+                <div id="initiativesList" class="row container-mb-20 threecolumnclear add-border">                                                                                
+                </div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- directorates -->
+<div class="wrapper">
+    <div class="container pt-20 plr-0">
+        <div class="row pb-20 mlr-0">
+            <div class="col-xs-12 plr-0">                    
+                <div class="pb-20">
+                    <div class="col-xs-12 plr-0">
+                        <div class="red-top-border">                                
+                            <h2 class="ptb-20 mb-0">Directorates</h2>                                
+                        </div>    
+                    </div>                                                       
+                </div>
+                <div id="directoratesList" class="row container-mb-20 threecolumnclear add-border">                                                                                
+                </div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Associations -->
+<div class="wrapper bg-yellow bg-stretch-before bg-stretch-after">
+    <div class="container pt-20 plr-0">
+        <div class="row pb-20 mlr-0">
+            <div class="col-xs-12 plr-0">                    
+                <div class="pb-20">
+                    <div class="col-xs-12 plr-0">
+                        <div class="yellow-top-border">                                
+                            <h2 class="ptb-20 mb-0">Associations</h2>                                
+                        </div>    
+                    </div>                                                       
+                </div>
+                <div id="associationsList" class="row container-mb-20 threecolumnclear add-border">                                                                                
+                </div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- groups -->	
+<div class="wrapper">
+    <div class="container pt-20 plr-0">
+        <div class="row pb-20 mlr-0">
+            <div class="col-xs-12 plr-0">                    
+                <div class="pb-20">
+                    <div class="col-xs-12 plr-0">
+                        <div class="blue-top-border">                                
+                            <h2 class="ptb-20 mb-0">Collaboration groups</h2>                                
+                        </div>    
+                    </div>                                
+                </div>
+                <div class="row container-mb-10">
+                    <div id="collaborationGroups" class="groups-block groups-wrapper">
+                        
+                    </div>
+                </div> 
+                <div class="row">
+                    <div class="col-xs-12 mt-10">
+                        <div class="btn-no-padding">
+                            <a class="icr-btn btn-blue" href="/pages/collaboration-groups.aspx">View all groups<span class="glyphicon glyphicon-chevron-right"></span></a>
+                        </div>    
+                    </div>    
+                </div>   
+            </div>                
+        </div>
+    </div>        
+</div>       
+
+
+<style type="text/CSS">
+.icr-body-wrapper{ overflow: hidden;}
+</style>
+
+<script type="text/javascript" src="/Style Library/ICR/Scripts/icr_groups.js"></script>
+<script type="text/javascript" language="javascript">
+var filterText ='';
+var userFilter ='';
+    $(document).ready(function ($) {        
+        getDivisions();
+		getStrategicInitiatives();
+        getDirectorates();
+		getAssociations();
+        getCollaborationGroups();
+        $('#teamLeadersDropdown').on('change',function(){
+            userFilter  = $(this).val();
+            getDivisions();
+        });
+        $('#teamsDropdown').on('change',function(){
+           var teampath  = $(this).val();
+            window.location = teampath;
+        });
+    });
+</script><html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"><head>
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:Notes0 msdt:dt="string"></mso:Notes0>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+<title></title></head>

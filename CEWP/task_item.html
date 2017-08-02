@@ -1,0 +1,73 @@
+<div class="wrapper">
+    <div class="container">
+        <div class="row">
+            
+            <!-- end side nav -->
+            <div class="col-md-3 hidden-sm hidden-xs pl-0">
+                <div class="left-nav red-top-border">
+					<ul id="parentTask">
+					</ul>
+                    <ul id="relatedTasks">                                                            
+                    </ul>
+                </div>   
+            </div>
+            <!-- end side nav -->
+            <div class="col-md-9 col-xs-12">
+                <div class="gutter-left-10">
+                    <!-- page title -->
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h1 id="taskTitle" class="page-title"></h1>                                                            
+                        </div>
+                    </div>
+                    <!-- end.page title -->
+                    
+                    <!-- user input -->
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="pb-20 icr-user-input">
+                                <div id="taskContent"></div>                                              
+                            </div>        
+                        </div>                                
+                    </div>
+                    <!-- end.user input -->
+                    
+                    <!-- accordian -->
+                    <div class="row">
+                        <div class="col-xs-12">                                        
+                            <div class="panel-group" id="accordion">
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end.accordian -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style type="text/css">
+    #sideNavBox { display: none;}
+    #contentBox {margin-left: 5px}
+    body span#DeltaPlaceHolderPageTitleInTitleArea { display: none;}
+</style>
+
+<script type="text/javascript" src="/style library/ICR/Scripts/icr_task_item.js">//<![CDATA[
+
+//]]>
+</script>
+<script type="text/javascript">
+    $(document).ready(function ($) {
+        $('#onetIDListForm').addClass('container');
+        var id = getQueryStringParams('ID');
+        getTaskDetails(id);  
+    });
+</script>
+<html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"><head>
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:Notes0 msdt:dt="string"></mso:Notes0>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+<title></title></head>

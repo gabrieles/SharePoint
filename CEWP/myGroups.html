@@ -1,0 +1,159 @@
+<div class="wrapper homepage-wrapper first-row">
+	<div class="container pl-0">
+		<div class="row">
+			<div class="">
+				<div class="container-md">
+					<div class="row">
+						<div class="col-xs-6">
+							<div id="myGroups" class="container-md"></div>
+						</div>
+						<div class="col-xs-6 bg-yellow bg-stretch-after">
+							<div id="recommendedGroups" class="container-md pt-20"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>		
+</div>
+<script type="text/javascript">
+
+//Get User followed sites
+function getUserFollowedSitesAll(){
+    /*var clientContext = SP.ClientContext.get_current();
+    var followingManager = new SP.Social.SocialFollowingManager(clientContext);
+    var followed = followingManager.getFollowed(4);
+    clientContext.load(followed);
+    clientContext.executeQueryAsync(Function.createDelegate(this, this.showFollowed), Function.createDelegate(this, this.hideFollowed));*/ 
+    var followedSitesRestSource = _spPageContextInfo.siteAbsoluteUrl +'/_api/social.following/my/followed(types=4)' ;
+    $.ajax({
+        url: followedSitesRestSource,
+        headers:{"accept":"application/json;odata=verbose"},
+        success: showFollowedAll,
+        error: hideFollowedAll
+    });
+
+}
+function showFollowedAll(data){
+    var stringData = JSON.stringify(data);
+    var jsonObject = JSON.parse(stringData);
+    var followed = jsonObject.d.Followed.results;
+	var groupNamesArray = [];
+	var myGroups = [];
+	var html = '';
+	var gData = [];
+    if(followed.length>0){
+        for(var i=0;i<followed.length;i++){
+			var name = followed[i].Name;
+			groupNamesArray.push(name);
+			var link = followed[i].Uri;
+			if(link.indexOf('/teams')>0){
+				myGroups.push(name + "/////" + link); //ugly hack to use array.sort()
+			}			
+        }
+		myGroups.sort();
+		for (var j=0; j<myGroups.length;j++){
+			gData = myGroups[j].split("/////");
+			html += '<div class="icr-container-wrapper pb-20"><h4><a href="'+gData[1]+'">'+gData[0]+'</a></h4></div>';
+		}
+		$('#myGroups').append(html);
+		
+		
+    }
+    else{
+        $('#myGroupsSection').hide();
+    }
+	getRecommendedGroupsAll(groupNamesArray)
+}
+function hideFollowedAll(sender,args){
+     $('#myGroupsSection').hide();
+}   
+
+//Recommended Groups
+function getRecommendedGroupsAll(excludeGroupsArray = []){
+	
+    var clientContext = new SP.ClientContext("/");
+    var oList = clientContext.get_web().get_lists().getByTitle('Collaboration Groups Promo Links');
+	var camlQuery = new SP.CamlQuery();
+	var camlQueryString;
+	if (excludeGroupsArray.length) {
+		var excludeThis = '';
+		for (var i = 0; i < excludeGroupsArray.length; i++) {
+			if (i == 0 ) {
+				excludeThis += '<Neq><FieldRef Name="Title" /><Value Type="Text">' + excludeGroupsArray[i] + '</Value></Neq>';	
+			} else {
+				excludeThis = 	'<And>' + 
+									excludeThis + 
+									'<Neq><FieldRef Name="Title" /><Value Type="Text">' + excludeGroupsArray[i] + '</Value></Neq>' + 
+								'</And>';
+			}
+			
+		}
+		
+		camlQueryString = '<View><Query>'+
+								'<Where><And>'+
+									excludeThis +	
+									'<Contains><FieldRef Name="icr_UserType" /><Value Type="LookupMulti">'+userType+'</Value></Contains>'+
+								'</And></Where>'+
+								'<OrderBy><FieldRef Name="Created" Ascending="False" /></OrderBy></Query>'+
+								'<RowLimit>30</RowLimit></View>';
+		
+	} else {
+		camlQueryString = '<View><Query><Where><Contains><FieldRef Name="icr_UserType" /><Value Type="LookupMulti">'+userType+'</Value></Contains></Where><OrderBy>'+
+        '<FieldRef Name="Created" Ascending="False" /></OrderBy></Query><RowLimit>30</RowLimit></View>';	
+	}
+	
+    console.log(camlQueryString);
+	
+	camlQuery.set_viewXml(camlQueryString)
+    this.recommendedGroups = oList.getItems(camlQuery);
+    clientContext.load(recommendedGroups);
+
+    clientContext.executeQueryAsync(Function.createDelegate(this, this.showRecommendedGroupsAll), Function.createDelegate(this, this.hideRecommendedGroupsAll));
+}
+
+function showRecommendedGroupsAll(sender,args){
+    var recommendedGroupsEnumerator = recommendedGroups.getEnumerator();
+    var count = recommendedGroups.get_count();
+    var type= '';
+    if(count>0){ 
+		var titleHTML = "<h2>Recommended groups</h2>";
+		$('#recommendedGroups').append(titleHTML); 
+        while (recommendedGroupsEnumerator.moveNext()) {
+
+            var oListItem = recommendedGroupsEnumerator.get_current();
+
+            var link = oListItem.get_item('icr_TeamSiteLink');
+            
+            var title = oListItem.get_item('Title');            
+            var id = oListItem.get_item('ID');       
+                              
+            var resultsHtml = '<div class="icr-container-wrapper pb-20"><h4><a href="'+link+'">'+title+'</a></h4></div>';
+            $('#recommendedGroups').append(resultsHtml); 
+        }
+    }
+    else{
+        $('#recommendedGroupsSection').hide();
+    }
+}
+function hideRecommendedGroupsAll(sender, args){
+    $('#recommendedGroupsSection').hide();
+}
+
+</script>
+
+<script type="text/javascript">
+
+//function triggered after the user profile details have been retrieved - no need for a document ready
+function addPersonalisation(){
+	getUserFollowedSitesAll();	
+}
+
+</script>
+	<html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"><head>
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:Notes0 msdt:dt="string"></mso:Notes0>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+<title></title></head>

@@ -1,0 +1,47 @@
+@font-face { 
+	font-family: 'replica'; 
+	src: url('../fonts/Replica-Regular.eot?') format('eot'), url('../fonts/Replica-Regular.woff') format('woff'), url('../fonts/Replica-Regular.ttf') format('truetype'); 
+	font-weight: normal; 
+	font-style: normal; 
+}
+
+@font-face { 
+	font-family: replica; 
+	src: url('../fonts/Replica-Bold.eot?') format('eot'), url('../fonts/Replica-Bold.woff') format('woff'), url('../fonts/Replica-Bold.ttf') format('truetype'); 
+	font-weight: 700; 
+	font-style: normal; 
+}
+
+@font-face { 
+	font-family: replica; 
+	src: url('../fonts/Replica-Light.eot?') format('eot'), url('../fonts/Replica-Light.woff') format('woff'), url('../fonts/Replica-Light.ttf') format('truetype'); 
+	font-weight: 300; 
+	font-style: normal; 
+}
+
+@font-face { 
+	font-family: 'replica'; 
+	src: url('../fonts/Replica-Italic.eot?') format('eot'), url('../fonts/Replica-Italic.woff') format('woff'), url('../fonts/Replica-Italic.ttf') format('truetype'); 
+	font-weight: normal; 
+	font-style: italic; 
+}
+
+@font-face { 
+	font-family: replica; 
+	src: url('../fonts/Replica-BoldItalic.eot?') format('eot'), url('../fonts/Replica-BoldItalic.woff') format('woff'), url('../fonts/Replica-BoldItalic.ttf') format('truetype'); 
+	font-weight: 700; 
+	font-style: italic; 
+}
+
+@font-face { 
+	font-family: replica; 
+	src: url('../fonts/Replica-LightItalic.eot?') format('eot'), url('../fonts/Replica-LightItalic.woff') format('woff'), url('../fonts/Replica-LightItalic.ttf') format('truetype'); 
+	font-weight: 300; 
+	font-style: italic; 
+}
+
+@font-face {
+font-family: 'Glyphicons Halflings';
+src: url('../fonts/glyphicons-halflings-regular.eot');
+src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}

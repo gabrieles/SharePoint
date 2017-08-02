@@ -1,0 +1,62 @@
+<p class="pb-20" >Please use the signature from the box below:</p>
+<div id="email-signature" contenteditable="true" style="width:100%;border:1px solid #cccccc; padding:20px 5px; ">
+	
+    <p style="margin:0px; color:#616365;"><span id="fullname" style="font-weight:700;"></span> | <span id="jobTitle"></span></p>
+    <p style="margin:0px 0px 0px 0px; color:#616365;"></p>
+    <p style="margin:0px 0px 0px 0px; color:#616365;">The Institute of Cancer Research | <span id="Address"></span></p>
+    <p style="margin:0px 0px 0px 0px; color:#616365;"></p>
+    <p style="margin:0px 0px 0px 0px; color:#616365;"></p>
+    <p style="margin:10px 0px 0px 0px; color:#616365;"><span style="font-weight:700;">T</span> <span id="tel"></span> | <span style="font-weight:700;">E</span> <a id="email" href=""><span style="color: #616365 !important;"></span></a> | <span style="font-weight:700;">W</span> <a href="http://www.icr.ac.uk"><span style="color: #616365 !important;">www.icr.ac.uk</span></a> | <span style="font-weight:700;">Twitter</span> <a href="https://twitter.com/ICR_London"><span style="color: #616365 !important;">@ICR_London</span></a></p>
+    <p style="margin:0px 0px 10px 0px; color:#616365;"><strong>Facebook</strong>  <a href="http://www.facebook.com/theinstituteofcancerresearch"><span style="color: #616365 !important;"></span>www.facebook.com/theinstituteofcancerresearch</a></p>
+    <p style="margin:0px 0px 25px 0px; color:#616365; font-weight:700; font-size:13px;">Making the discoveries that defeat cancer</p>
+
+    <p style="margin:0px;">
+		<a href="http://www.icr.ac.uk/">
+			<img src="https://nexus.icr.ac.uk/Style%20Library/ICR/Images/icr_logo_signature.gif" alt="ICR Logo"/>
+		</a>
+	</p>
+    
+    
+</div>
+
+<style>
+#email-signature p {
+	font-family: 'Arial', sans-serif; 
+	font-size: 12px; 
+	line-height: 18px;
+}
+#email-signature a {
+    color: #616365;
+    text-decoration: none;
+    border: none;
+}
+</style> 
+
+<script type="text/javascript">
+
+	function addPersonalisation(){
+		$('#fullname').text(nexusUser.fullName);
+		$('#jobTitle').text(nexusUser.Title);
+		var userAddress = '';
+		if (nexusUser.Building.indexOf('Brompton')) {
+			var userAddress = '123 Old Brompton Road, London, SW7 3RP';
+		} else {
+			if (nexusUser.Building.indexOf('Fulham')) {
+				var userAddress = '237 Fulham Road, London, SW2 6JB';
+			} else {
+				var userAddress = '15 Cotswold Road, Sutton, London, SM2 5NG';
+			}	
+		}
+		$('#Address').text(userAddress.trim());
+		$('#tel').text(nexusUser.WorkPhone);
+		$('#email span').text(nexusUser.WorkEmail);
+		$('#email').attr('href',nexusUser.WorkEmail);
+	}
+
+</script><html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"><head>
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:Notes0 msdt:dt="string"></mso:Notes0>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+<title></title></head>

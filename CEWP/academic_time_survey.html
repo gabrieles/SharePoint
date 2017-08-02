@@ -1,0 +1,77 @@
+<style>
+.ms-formtable input[id$="NumberField"] {
+    width: 40px;
+    margin-right: 5px;
+    text-align: right;
+}
+.ms-standardheader {
+    min-width: 350px;
+}
+.ms-formtable tr:nth-child(28) .ms-metadata {
+	display: none;
+}
+tr.greyRow { 
+	background-color: #EFEFEF;
+}
+.greyRow h3.ms-standardheader {
+    padding-left: 20px;
+}
+</style>
+<script>
+function updateTotals(){
+	var totVal = 0;
+	var totA = 0;
+	var totB = 0;
+	var totC = 0;
+	$(".ms-formtable input[id$='NumberField']").each(function(index){ 
+		switch(index) {
+			//the first one is not used for sums
+			case 0:
+				break;
+			
+			//do all sums			
+			case 4:
+				totA = totVal;
+				$(this).val(totA); 
+				break;	
+			case 13:
+				totB = totVal - totA;
+				$(this).val(totB); 
+				break;
+			case 17:
+				totC = totVal - totA - totB;
+				$(this).val(totC); 
+				break;
+			case 20:
+				$(this).val(totVal);
+				if( totVal == 100 ) { 
+					$(this).closest('td').find('.ms-metadata').hide(); 
+				} else {
+					$(this).closest('td').find('.ms-metadata').show(); 
+				}
+				break;	
+				
+			default:
+				totVal += parseInt($(this).val()); 
+		}
+	});
+}
+
+$( document ).ready(function() {
+
+	
+	$(".ms-formtable input[id$='NumberField']").each(function(index){ 
+		$(this).blur(function(){ updateTotals(); }); 
+		if (index == 4 || index == 13 || index == 17 || index == 20) {
+			$(this).attr('disabled','disabled');
+			$(this).closest('tr').addClass('greyRow')
+		}
+	});
+});
+</script><html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"><head>
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:Notes0 msdt:dt="string"></mso:Notes0>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+<title></title></head>

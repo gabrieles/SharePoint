@@ -1,0 +1,196 @@
+<div class="wrapper">
+    <div class="container">        
+        <div class="row">
+            <!-- page title -->
+            <div class="col-xs-12">
+                <div class="row">
+                    <div class="col-sm-8 col-xs-12">
+                        <h1 class="page-title"><span id="eventTitle"></span></h1>
+                    </div>
+                    <div class="col-sm-4 col-xs-12">
+                        <div class="add-calendar-container">
+                            <h5 class="text-red text-bold"><span class="glyphicon glyphicon-add-calendar"></span><a id="addToCalendar" href="#">Add to my calendar</a></h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end. page title--> 
+        </div>
+        <div class="row">
+            <!-- main-content -->
+            <div class="col-sm-8 col-xs-12">
+                <div class="pb-20 icr-user-input">
+                    <div id="eventDescription">/</div>
+                </div>
+                <div id="attachmentSection">
+                    <h5 class="text-bold pb-10">Attachments</h5>
+                    <div class="attachments-block container-md full-grey-border" id="attachments">
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <!-- end. main content-->
+            <!-- right aside -->
+            <div class="col-sm-4 col-xs-12">
+                <div class="details-block-aside xs-pad">
+                    <div class="container-md" id="eventLocationSection">
+                        <p class="text-bold">Location</p>
+                        <div id="eventLocation"></div>
+                    </div>
+                    <div class="container-md" id="eventStartTimeSection">
+                        <p class="text-bold">Start date & time</p>
+                        <div id="eventStartTime"></div>
+                    </div>
+                    <div class="container-md" id="eventEndTimeSection">
+                        <p class="text-bold">End date & time</p>
+                        <div id="eventEndTime"></div>
+                    </div>
+					<div class="container-md" id="eventSpeakerSection">
+                        <p class="text-bold">Speaker</p>
+                        <div id="eventSpeaker">                            
+                        </div>                                    
+                    </div> 
+                    <div class="container-md" id="eventCategorySection">
+                        <p class="text-bold">Category</p>
+                        <div class="filter-bar" id="eventCategory">                            
+                        </div>                                    
+                    </div> 			
+                </div>   
+            </div>
+            <!-- end. right aside -->                    
+        </div>            
+    </div>
+</div>
+<script type="text/javascript">//<![CDATA[                                
+    jQuery(document).ready(function($){
+        $('#MSOZoneCell_WebPartWPQ1').hide();
+        var id = getQueryStringParams('ID');
+        if(null != id){
+            getEventDetails(id);
+            var listID = _spPageContextInfo.pageListId;            
+            var addHref = '/events/_vti_bin/owssvr.dll?CS=109&Cmd=Display&List='+listID+'&CacheControl=1&ID='+id+'&Using=event.ics';
+            $('#addToCalendar').prop('href',addHref);
+        }
+    });
+
+    function getEventDetails(id){
+        var eventRestSource = "/events/_api/web/lists/getbytitle('Events')/items("+ id+")?$expand=AttachmentFiles";
+
+        $.ajax(
+        {
+            url: eventRestSource,
+            headers: { "accept": "application/json; odata=verbose" },
+            cache: false,
+            success: function (item) {            
+                displayEventInformation(item);
+            },
+            error: function (err) {
+                alert(JSON.stringify(err));
+            }
+        });
+    }
+    function displayEventInformation(item){        
+        var eventTitle = item.d.Title;
+        var eventDescription = item.d.Description;
+        var eventLocation = item.d.Location;
+        var eventStartTime = moment(item.d.EventDate).format("DD MMM YYYY, HH:mm");
+        var eventEndTime = moment(item.d.EndDate).format("DD MMM YYYY, HH:mm");
+        var eventCategory = item.d.Category;
+		console.log(item.d);
+		var eventSpeaker = item.d.Speaker.trim();
+        var htmlTxt = "";
+
+        $('#eventTitle').text(eventTitle);
+        $('#eventDescription').html(eventDescription);
+        if(null!=eventLocation && eventLocation.length>0){
+            $('#eventLocation').html('<p>'+eventLocation+'</p>');
+        }
+        else{
+            $('#eventLocationSection').hide();
+        }
+        if(null!=eventStartTime && eventStartTime.length>0){
+            $('#eventStartTime').html('<p>'+eventStartTime+'</p>');
+        }
+        else{
+            $('#eventStartTimeSection').hide();
+        }
+        if(null!=eventEndTime && eventEndTime.length>0){
+            $('#eventEndTime').html('<p>'+eventEndTime+'</p>');
+        }
+        else{
+            $('#eventEndTimeSection').hide();
+        }
+
+        if(null!=eventCategory && eventCategory.length>0){
+            if(eventCategory.toLowerCase() == 'scientific'){
+                htmlTxt = '<p><span class="filter-icon bg-pink"></span>'+eventCategory+'</p></div>'
+            }
+            else if(eventCategory.toLowerCase() == 'training'){
+                htmlTxt = '<p><span class="filter-icon bg-orange"></span>'+eventCategory+'</p></div>'
+            }
+            else{
+                htmlTxt = eventCategory;
+            }
+            $('#eventCategory').html(htmlTxt);
+        }
+        else{
+            $('#eventCategorySection').hide();
+        }
+		
+		if(null!=eventSpeaker && eventSpeaker.length>0){
+			$('#eventSpeaker').html('<p>'+eventSpeaker+'</p>');
+		}
+        else{
+            $('#eventSpeakerSection').hide();
+        }
+		
+        if(item.d.Attachments){
+            var attachmentCount = item.d.AttachmentFiles.results.length;
+            for(var j=0;j<attachmentCount;j++){
+                var link = item.d.AttachmentFiles.results[j].ServerRelativeUrl;
+                var fileName = item.d.AttachmentFiles.results[j].FileName;
+                var ext = fileName.split('.').pop().toLowerCase();
+                var imageSrc ='/style library/ICR/Images/icons/'
+                if(ext=='pdf'){
+                    imageSrc +='icon_pdf.png';
+                }
+                else if(ext=='doc' || ext=='docx'){
+                    imageSrc +='icon_doc.png';
+                }
+                else if(ext=='xls' || ext=='xlsx'){
+                    imageSrc +='icon_xls.png';
+                }
+                else if(ext=='ppt' || ext=='pptx'){
+                    imageSrc +='icon_ppt.png';
+                }
+                else if(ext=='png' || ext=='jpg' || ext=='jpeg'){
+                    imageSrc +='icon_image.png';
+                }
+                else{
+                    imageSrc +='icon_link.png';
+                }                
+                var attachmentHtml = '<div class="container-full-width"><div class="attachments-wrapper"><div class="doctype_thumb"><a href="'+link+'"><img src="'+imageSrc+'"></a></div><div class="text-table"><p><a href="'+link+'">'+ fileName +'</a></p><div class="icr-meta"><span>16 Jun</span><span class="icr-meta-space"></span><span><a href="#">Jennifer Brown</a></span></div></div></div></div>';
+
+                $('#attachments').append(attachmentHtml);
+            }
+        } else {			
+			$('#attachmentSection').hide();
+		}
+            
+    }
+    
+//]]>
+</script>
+<style type="text/css">
+    #sideNavBox { display: none;}
+    #contentBox {margin-left: 20px; }
+   #DeltaPlaceHolderPageTitleInTitleArea{display:none;}
+</style>
+<html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"><head>
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:Notes0 msdt:dt="string"></mso:Notes0>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+<title></title></head>

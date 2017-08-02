@@ -1,0 +1,37 @@
+<div id="menuContainer">
+	<div id="menuContainerLoading">Loading data from the Baxter Storey website...</div>
+</div>
+
+ 
+<script>
+$(document).ready(function ($) {
+	$.ajax({
+	   type: 'GET',
+	   url: 'https://crossorigin.me/http://icr.baxterstorey.com/extranet/menu.vc', //need to preprend the crossorigin url to avoid the ajax call to be blocked
+	   data: {format: 'html'},
+	   success: function(data) {
+		  $('#menuContainerLoading').hide();
+		  
+		  var html = $(data).find('#maincontent p');
+		  $('#menuContainer').append(html);
+		  
+		  html = '<h2>Menus</h2>';
+		  $('#menuContainer').append(html);
+		  
+		  html = '<ul id="menuLinks"></ul>';
+		  $('#menuContainer').append(html);
+		  
+		  $(data).find('#menudownloads a').each( function(){
+			html = '<li> <a href="http://icr.baxterstorey.com/' + $(this).attr('href') +'">' + $(this).text() + '</a> </li>';
+			$('#menuLinks').append(html);
+		  } );
+		  
+	   },
+	   error: function() {
+		  $('#menuContainer').html('<p>Could not retrieve the information from their website</p>');
+	   },
+	});
+
+});
+
+</script>

@@ -1,0 +1,55 @@
+
+<p>This page takes 5 parameters from the URL:
+<ul>
+	<li><b>listname</b>: the full name of the list you want to extract the links from (eg: "Tasks")</li>
+	<li><b>fieldname</b>: the name of the field that you want to scan for links (eg: "Task Content" or "Description")</li>
+	<li><b>listContext</b>: the relative URL of where the list is (eg: "/" or "/directorates/Communications/")</li>
+	<li><b>highlight1</b>: all URLs with this string will be highlighted with a yellow background (eg: "ispace.icr.ac.uk") </li>
+	<li><b>highlight2</b>: all URLs with this string will be highlighted with a green background (eg: "cspace.icr.ac.uk") </li>
+</ul>
+</p>
+<p>NB: they are all case sensitive. You can leave spaces in the fieldName.</p>
+
+<h3>Examples</h3>
+<ul class="pb-20">
+	<li>
+		<a href="https://nexus.icr.ac.uk/Pages/Extract-links.aspx?listname=Tasks&fieldname=Task Content&listContext=/&highlight1=ispace.icr.ac.uk&highlight2=cspace.icr.ac.uk">
+			Tasks
+		</a>
+	</li>
+	<li>
+		<a href="https://nexus.icr.ac.uk/Pages/Extract-links.aspx?listname=Pages&fieldname=PublishingPageContent&listContext=/ouricr/&highlight1=ispace.icr.ac.uk&highlight2=cspace.icr.ac.uk">
+			Our ICR
+		</a>
+	</li>
+	<li>
+		<a href="https://nexus.icr.ac.uk/Pages/Extract-links.aspx?listname=Policies&fieldname=icr_PolicyContent&listContext=/&highlight1=ispace.icr.ac.uk&highlight2=cspace.icr.ac.uk">
+			Policy library
+		</a>
+	</li>
+</ul>
+
+<hr/>
+
+<div id="ItemLinksList" class="dis-t pt-20"></div>
+
+<script type="text/javascript" src="/style library/ICR/Scripts/icr_links_extract.js">//<![CDATA[
+
+//]]></script>
+<script type="text/javascript" language="javascript">
+    $(document).ready(function ($) {
+			getAllLinks("Tasks","Task_x0020_Content"); 
+	});
+</script>
+
+<style type="text/css">
+span.itemlink {
+    max-width: 300px;
+}
+</style><html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"><head>
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:Notes0 msdt:dt="string"></mso:Notes0>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+<title></title></head>

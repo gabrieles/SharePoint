@@ -1,0 +1,148 @@
+<div class="wrapper">
+    <div class="container">
+        <div class="row">
+            
+            <!-- end side nav -->
+            <div class="col-md-3 hidden-sm hidden-xs pl-0">
+                <div class="left-nav red-top-border">
+					<ul id="parentTask">
+						<li><a href="/Lists/ICR%20Tasks/DispForm.aspx?ID=24">Media production</a></li>
+					</ul>
+                    <ul id="relatedTasks">                                                            
+                    </ul>
+                </div>   
+            </div>
+            <!-- end side nav -->
+            <div class="col-md-9 col-xs-12">
+                <div class="gutter-left-10">
+                    <!-- page title -->
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h1 id="taskTitle" class="page-title"></h1>                                                            
+                        </div>
+                    </div>
+                    <!-- end.page title -->
+                    
+                    <!-- user input -->
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="pb-20">
+                                <div id="mediaDisplay">
+									<div id="mediaDisplayImage"></div>
+									<div id="mediaDisplayCore"><table></table></div>
+									<div id="mediaDisplayMSDS"></div>
+									<div id="additional">
+										<div id="additionalinformation"></div>
+										<div id="components"></div>
+										<div id="preparationmethod"></div>
+										<div id="initials"></div>
+									</div>	
+								</div>                                             
+                            </div>        
+                        </div>                                
+                    </div>
+
+				</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<style>
+#mediaDisplayImage {
+	display: inline-block;
+	float: left;
+}
+#mediaDisplayImage img {
+	max-width: 215px;
+	margin-right: 20px;
+}
+#mediaDisplayCore {
+	float: left;
+}
+div#mediaDisplayCore .ms-standardheader {
+    padding-right: 20px;
+}
+#mediaDisplayMSDS{
+	float: right;
+}
+#additional {
+	clear: both;
+	padding-top: 20px;
+}
+#additional table td {
+    border: 1px solid #ddd;
+    padding: 5px 15px;
+}
+#initials {
+	display: none;
+}
+.ms-core-tableNoSpace {
+	width: 100%;
+}
+body span#DeltaPlaceHolderPageTitleInTitleArea,
+#WebPartWPQ1 .ms-formtoolbar {
+    display: none;
+}
+</style>
+
+<script type="text/javascript">
+    $(document).ready(function ($) {
+		var html = '';
+		
+		//update the title 
+		var rowEl = $('.ms-formtable a[name="SPBookmark_Title"]').closest('tr');
+		html = '<span>' + rowEl.find('.ms-formbody').text() + '</span>';
+		$('#taskTitle').append(html);
+		rowEl.hide();
+		
+		//get the image
+		html = $('.ms-formtable #SPFieldImage .ms-rtestate-field').html();
+		$('.ms-formtable #SPFieldImage').closest('tr').remove();
+		if (html.length < 45) {html = '';}
+		$('#mediaDisplay #mediaDisplayImage').html(html);
+		
+		//copy over the core details
+		html = '';
+		var htmlAdd = ''
+		$('.ms-formtable tr').each(function(index) {
+			if (index<8) {
+				html += "<tr>" + $(this).html() + "</tr>";
+				$(this).find('td').removeProp('width');
+				$(this).remove()
+			} else {
+				//MSDS Information
+				if (index==8) { 
+					if($(this).find('.ms-formbody').text().trim().length > 5 ) {
+						var href = $(this).find('.ms-formbody a').attr('href');
+						$('#mediaDisplayMSDS').html('<a href="' + href + '"><img src="/directorates/Facilities/Media%20catalogue%20images/_w/msds_gif.jpg" /></a>')
+					} 
+					$(this).remove()
+				
+				//Additional info, components, preparation method, and initials (hidden with "display:none")
+				} else {
+					if ($(this).find('.ms-formbody').text().trim().length > 5) {				
+						var idEl = $(this).find('.ms-formlabel h3').text().toLowerCase().trim().replace(/\s+/g, '');
+						var colIndex = index - 9;
+						$('#' + idEl).html('<div class="pb-20"><div><h3 class="border-bottom-line' + colIndex +'">' + $(this).find('.ms-formlabel h3').text()  + '</h3></div><div>' + $(this).find('.ms-formbody').html() + '</div></div>');
+					} 
+					$(this).remove()
+				}	
+			}
+		});
+		$('#mediaDisplay #mediaDisplayCore table').html(html);
+		
+		//add the left hand menu
+		addTaskMenu('Scientific support', 'Services', 496, 24)
+
+	});
+</script>	
+<html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"><head>
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:Notes0 msdt:dt="string"></mso:Notes0>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+<title></title></head>

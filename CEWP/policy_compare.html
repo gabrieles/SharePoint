@@ -1,0 +1,174 @@
+<p class="comparison-title text-bold ms-textLarge">
+ From <select id="select1"></select> to <select id="select2"></select> <a id="policyLink" class="icr-btn btn-red fl-r" href="https://nexus.icr.ac.uk/Lists/ICR%20Policies/">Back to the policy</a>
+</p>
+
+<div id="text-compare-wrapper">
+	
+	<input type="button" id="showFields" class="hideDefault" onclick="showFieldsComparison()" value="Show cover sheet fields">
+	<input type="button" id="hideFields" onclick="hideFieldsComparison()" value="Hide cover sheet fields">
+	
+	<input type="button" id="showText" onclick="showTextComparison()" value="Show body">
+	<input type="button" id="hideText" class="hideDefault" onclick="hideTextComparison()" value="Hide body">
+	
+	<div id="fieldsCompare">
+		<table width="100%">
+			<tbody>
+				<tr class="hasFieldName"><td>Title:</td><td id="title1"></td></tr>
+				<tr><td></td><td id="title2" class="no-change"></td></tr>
+				
+				<tr class="hasFieldName"><td>Approving committee:</td><td id="committee1"></td></tr>
+				<tr><td></td><td id="committee2" class="no-change"></td></tr>
+
+				<tr class="hasFieldName"><td>Date of first approval:</td><td id="dateApproval1"></td></tr>
+				<tr><td></td><td id="dateApproval2" class="no-change"></td></tr>
+
+				<tr class="hasFieldName"><td>Minute reference:</td><td id="minute1"></td></tr>
+				<tr><td></td><td id="minute2" class="no-change"></td></tr>
+
+				<tr class="hasFieldName"><td>Document owner:</td><td id="owner1"></td></tr>
+				<tr><td></td><td id="owner2" class="no-change"></td></tr>
+
+				<tr class="hasFieldName"><td>Date of Equality Impact Assessment:</td><td id="equalityDate1"></td></tr>
+				<tr><td></td><td id="equalityDate2" class="no-change"></td></tr>
+
+				<tr class="hasFieldName"><td>Equality Impact Assessment Outcome:</td><td id="equalityOutcome1"></td></tr>
+				<tr><td></td><td id="equalityOutcome2" class="no-change"></td></tr>
+
+				<tr class="hasFieldName"><td>Latest review date:</td><td id="latestReview1"></td></tr>
+				<tr><td></td><td id="latestReview2" class="no-change"></td></tr>
+
+				<tr class="hasFieldName"><td>Next review date:</td><td id="nextReview1"></td></tr>
+				<tr><td></td><td id="nextReview2" class="no-change"></td></tr>	
+			</tbody>
+		</table>
+	</div>	
+	
+	
+	
+	<div id="textCompare" class="hideDefault">
+		<div class="textBox">
+			<h4>From:</h4>
+			<div id="text1" class="compareContent" contenteditable="true"></div>
+		</div>
+		<div class="textBox">
+			<h4>To:</h4>
+			<div id="text2" class="compareContent" contenteditable="true"></div>
+		</div>
+		<input type="button" onclick="nexusCompare()" value="Compare">
+	</div>
+
+</div>
+
+<div id="instructions-wrapper">
+	<div id="instructions">
+		<h3>Track changes in the body</h3>
+		<p>NB: The background color shows if text has been <ins>added</ins> or <del>removed</del> </p>
+	</div>
+</div>
+
+<div id="outputdiv"></div>
+
+<script type="text/javascript" language="JavaScript" src="/Style%20Library/ICR/Scripts/diff_match_patch.js"></script>
+
+<script type="text/javascript" language="JavaScript" src="/Style%20Library/ICR/Scripts/icr_policy_compare.js?v=4"></script>
+
+<script type="text/javascript">
+	$(document).ready(function ($) {
+	    getPolicyForComparison();
+    });
+</script>
+
+
+<style type="text/css">
+#fieldsCompare{
+	background-color: #eaebeb;
+    padding: 5px;
+}
+
+#fieldsCompare td{
+	padding: 0 5px;
+}
+#fieldsCompare tr.hasFieldName td:first-of-type {
+    font-weight: 500;
+    width: 320px;
+}
+#fieldsCompare tr.hasFieldName td {
+    padding-top:7px
+}
+td.no-change {
+    color:#ccc;
+}
+td.changed {
+    color: #F00034;
+    border: 1px solid #f00;
+}
+td.changed:before {
+    content: 'changed to:';
+    margin-left: -100px;
+    display: inline-block;
+    float: left;
+    color: #F00034;
+}
+
+p.compareNote {
+	color: #F00034;
+}
+
+span.pilcrow:after {
+    display: inline-block;
+    content: "\00b6";
+    color: #aaa;
+    padding-left: 3px;
+    font-size: 0.9rem;
+}
+ins span.pilcrow:after, 
+del span.pilcrow:after {
+	color: #333;
+}
+.textBox {
+	width: 48%;
+	margin-right: 1%;
+	float: left;
+	display: inline-block;
+}
+.compareContent {
+	border: 1px solid #ddd;
+	width: 100%;
+	display: block;
+	padding: 5px;  
+}
+#instructions-wrapper{
+	clear: both;
+	padding: 10px 0;
+}
+#instructions {
+	border: 1px solid #ccc;
+	padding: 10px 5px;
+}
+
+#instructions ins,
+#outputdiv ins {
+	background:#C9DD03;
+}
+#instructions del,
+#outputdiv del {
+	background:#F9A100;
+}
+
+body div input[type=button] {
+    padding: 10px 7px;
+    font-size: 0.9rem;
+    border-radius: 5px;
+	margin: 10px 0;
+}
+#textCompare table ul {
+	list-style: inherit;
+    list-style-position: inside;
+}
+</style><html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"><head>
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:Notes0 msdt:dt="string"></mso:Notes0>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+<title></title></head>

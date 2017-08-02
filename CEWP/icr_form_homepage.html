@@ -1,0 +1,42 @@
+<div class="row">
+    <div class="col-md-5">
+        <div class="icr-srch-field ">                                            
+            <div class="input-group">
+                <input id="searchText" type="text" class="form-control" placeholder="Search" name="srch-term" />
+                <div class="input-group-btn">
+                    <button id="searchForms" class="btn btn-default" type="submit" onclick="filterLocalItems();return false;"><i class="glyphicon glyphicon-search"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div id="policiesList" class="container-mt-20 threecolumnclear pt-20 tasksList">
+        
+    </div>
+</div>
+
+<script type="text/javascript" src="/style library/ICR/Scripts/icr_form_homepage.js">//<![CDATA[
+
+//]]></script>
+
+<script type="text/javascript" language="javascript">
+var filterText ='';
+var catList = new Object();
+
+$(document).ready(function ($) {
+	$("#searchText").keyup(function(event){
+		if(event.keyCode == 13){
+			$("#searchForms").click();
+		}
+	});
+	getFormCategories();  
+});
+</script>
+<html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"><head>
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:Notes0 msdt:dt="string"></mso:Notes0>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+<title></title></head>
